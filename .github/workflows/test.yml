@@ -45,6 +45,10 @@ jobs:
       run: mvn clean compile
 
     - name: Run Tests
+      env:
+        DB_URL: jdbc:mysql://127.0.0.1:3306/minded_test
+        DB_USER: root
+        DB_PASSWORD: test
       run: mvn test
 
     - name: Generate Coverage Report

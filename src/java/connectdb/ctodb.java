@@ -17,9 +17,9 @@ import java.util.Properties;
 public class ctodb {
 
     private static HikariDataSource dataSource;
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/minded";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_URL = System.getenv().getOrDefault("DB_URL", "jdbc:mysql://localhost:3306/minded");
+    private static final String DB_USER = System.getenv().getOrDefault("DB_USER", "root");
+    private static final String DB_PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", "");
 
     // Initialize connection pool on class load
     static {
