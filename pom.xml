@@ -11,7 +11,7 @@
     <packaging>war</packaging>
 
     <name>Minded</name>
-    <description>Community-driven Q&A platform for knowledge sharing</description>
+    <description>Community-driven Q&amp;A platform for knowledge sharing</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
