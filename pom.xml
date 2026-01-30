@@ -102,6 +102,26 @@
             <version>2.2.220</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Flyway Database Migration -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.22.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+            <version>10.22.1</version>
+        </dependency>
+
+        <!-- HikariCP Connection Pooling -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -186,6 +206,21 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Flyway Maven Plugin (for database migrations) -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.22.1</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/minded</url>
+                    <user>root</user>
+                    <password></password>
+                    <locations>
+                        <location>filesystem:db/migration</location>
+                    </locations>
+                </configuration>
             </plugin>
         </plugins>
     </build>
