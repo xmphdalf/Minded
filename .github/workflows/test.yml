@@ -1,0 +1,67 @@
+name: Java CI with Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: minded_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Wait for MySQL
+      run: |
+        while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
+          sleep 1
+        done
+
+    - name: Build with Maven
+      run: mvn clean compile
+
+    - name: Run Tests
+      run: mvn test
+
+    - name: Generate Coverage Report
+      run: mvn jacoco:report
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: target/site/jacoco/
+
+    - name: Check Coverage Threshold
+      run: mvn jacoco:check
+
+    - name: Display Coverage Summary
+      run: |
+        if [ -f target/site/jacoco/index.html ]; then
+          echo "Coverage report generated successfully"
+          echo "View the full report in the artifacts"
+        fi

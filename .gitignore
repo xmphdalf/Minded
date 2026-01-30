@@ -1,0 +1,46 @@
+# IMPORTANT: Never commit CLAUDE.md
+CLAUDE.md
+
+# Build artifacts
+/build/
+/dist/
+/nbproject/private/
+/target/
+
+# IDE files
+*.class
+.DS_Store
+*.swp
+*.iml
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Test coverage
+/.nyc_output/
+/coverage/
+coverage.xml
+*.exec
+
+# Local config
+*.local
+
+# User uploads
+web/images/uploads/
+web/images/user/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# OS files
+Thumbs.db
+.DS_Store
